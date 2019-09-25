@@ -8,8 +8,8 @@ from trie import TrieNode
 
 alphabet = list('abcdefghijklmnopqrstuvwxyz') # In english, obviously
 
-def load_dictionary():
-    with open('words_dictionary.json', 'r') as infile:
+def load_dictionary(name='words_dictionary.json'):
+    with open(name, 'r') as infile:
         return json.load(infile)
 
 def create_language_trie(dictionary):
