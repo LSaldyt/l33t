@@ -36,7 +36,7 @@ def add_words(i, j, n, board, lang, words):
             for l, k in adjacent(x, y, n):
                 sx = s + board[l][k]
                 if lang.isword(sx, prefix=True):
-                    prefixes.append((sx, x, y))
+                    prefixes.append((sx, l, k))
 
 def main():
     #print(create_language_trie(load_dictionary()))
@@ -44,6 +44,7 @@ def main():
     n = 4
     #board = generate_board(4)
     board = [list('dail'), list('isai'), list('dkey'), list('yhnr')]
+    print('key' in lang)
     pprint(board)
     words = set()
     for i in range(n):

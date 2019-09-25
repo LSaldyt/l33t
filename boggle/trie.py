@@ -34,7 +34,7 @@ class TrieNode:
                 current = current.children[c]
             else:
                 return False
-        if prefix or current.radix == '*':
+        if prefix or '*' in current.children:
             return True
         return False
 
