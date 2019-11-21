@@ -6,9 +6,7 @@ def main(args):
     problem = ['abcd', '1234', 'efgd', '567c']
     queries = ['ab2', 'efg', '1234dc']
     problem = ['aaaaa'] * 5
-    queries = ['a' * 5]
-    problem = ['abc', 'abc']
-    queries = ['abc']
+    queries = ['a' * 7]
     print('Problem:')
     for row in problem:
         print(row)
@@ -18,8 +16,8 @@ def main(args):
         mid    = time.time()
         second = exhaustive(problem, query, save=True)
         final  = time.time()
-        print('Query: {} Occurances: {}'.format(query, first))
-        print('Query: {} Occurances: {}'.format(query, second))
+        print('Query: {} Occurances: {} Time: {}'.format(query, first, mid - begin))
+        print('Query: {} Occurances: {} Time: {}'.format(query, second, final - mid))
     return 0
 
 
@@ -38,6 +36,7 @@ def exhaustive(array, query, save=False):
                 seen = set()
                 seen.add((i, j))
                 total += count(array, seen, query[1:], i, j, x, y, cache, save)
+                seen.remove((i, j))
     return total
 
 def valid(i, j, x, y):
@@ -46,8 +45,8 @@ def valid(i, j, x, y):
 def count(array, seen, query, i, j, x, y, cache, save):
     if len(query) == 0:
         return 1
-    if save and (query, i, j, x, y) in cache:
-        return cache[(query, i, j, x, y)]
+    if save and (tuple(sorted(list(seen))), query, i, j) in cache:
+        return cache[(tuple(sorted(list(seen))), query, i, j)]
     neighbors = [(i, j) for(i, j) in [(i - 1, j - 1),
                                       (i - 1, j),
                                       (i, j - 1),
@@ -64,7 +63,7 @@ def count(array, seen, query, i, j, x, y, cache, save):
                 total += count(array, seen, query[1:], ni, nj, x, y, cache, save)
                 seen.remove((ni, nj))
     if save:
-        cache[(query, i, j, x, y)] = total
+        cache[(tuple(sorted(list(seen))), query, i, j)] = total
     return total
 
 if __name__ == '__main__':
