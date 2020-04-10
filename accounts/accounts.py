@@ -3,8 +3,8 @@
 import numpy as np
 from time import time
 
-# EXAMPLES = [(100, [(0, 100, 10), (0, 50, 5), (30, 31, 1)])]
 EXAMPLES = [(1000, [(i, i + 1, 1) for i in range(999)])]
+EXAMPLES = [(10000, [(i, i + 100, 1) for i in range(100)])]
 
 def max_account_value(n, rounds):
     accounts = [0 for i in range(n)]
@@ -60,7 +60,7 @@ def benchmark(f, n, rounds, iterations=1000, name=''):
     print(result, end - start)
 
 def main():
-    iterations = 100
+    iterations = 1000
     for i, (n, example) in enumerate(EXAMPLES):
         print('Example ', i)
         benchmark(max_account_value,        n, example, name='Normal', iterations=iterations)
